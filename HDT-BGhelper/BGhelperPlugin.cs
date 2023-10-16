@@ -42,7 +42,7 @@ namespace HDT_BGhelper
 		{
 			helper = new BGhelper();
 			GameEvents.OnGameStart.Add(helper.GameStart);
-			GameEvents.OnInMenu.Add(helper.InMenu);
+			GameEvents.OnGameEnd.Add(helper.GameEnd);
         }
 
         public void OnUnload()
@@ -56,7 +56,7 @@ namespace HDT_BGhelper
 
 		public Version Version
 		{
-			get { return new Version(1, 0); }
+			get { return new Version(1, 1); }
 		}
 	}
 }

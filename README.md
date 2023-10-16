@@ -1,12 +1,12 @@
 # HDT-BGhelper  
 
-This is a plugin for the hearthstone battleground.
+This is a plugin for the hearthstone battleground.  
 
 With this plugin, You can refresh the tavern with right click and freeze with middle click.  
 
 Please set the window size close to ratio 16:9, otherwise the position may be wrong.  
 
-And you cannot send the emoji after applying this plugin (since the right click set to refresh).  
+Since the right click set to refresh, don't send emoji when you can refresh.  
 
 # Installation  
 

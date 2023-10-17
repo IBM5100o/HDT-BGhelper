@@ -56,7 +56,7 @@ namespace HDT_BGhelper
 
 		public Version Version
 		{
-			get { return new Version(1, 1); }
+			get { return new Version(1, 2); }
 		}
 	}
 }

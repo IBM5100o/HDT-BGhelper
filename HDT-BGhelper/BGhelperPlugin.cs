@@ -4,59 +4,59 @@ using Hearthstone_Deck_Tracker.Plugins;
 
 namespace HDT_BGhelper
 {
-	public class BGhelperPlugin : IPlugin
-	{
-		private BGhelper helper;
+    public class BGhelperPlugin : IPlugin
+    {
+        private BGhelper helper;
 
         public string Author
-		{
-			get { return "IBM5100"; }
-		}
+        {
+            get { return "IBM5100"; }
+        }
 
-		public string ButtonText
-		{
-			get { return "No Settings"; }
-		}
+        public string ButtonText
+        {
+            get { return "No Settings"; }
+        }
 
-		public string Description
-		{
-			get { return "A battleground plugin makes shortcuts for refresh and freeze.\n" +
-					"Right click = refresh, middle click = freeze"; }
-		}
+        public string Description
+        {
+            get { return "A battleground plugin makes shortcuts for refresh and freeze.\n" +
+                    "Right click = refresh, middle click = freeze"; }
+        }
 
-		public System.Windows.Controls.MenuItem MenuItem
-		{
-			get { return null; }
-		}
+        public System.Windows.Controls.MenuItem MenuItem
+        {
+            get { return null; }
+        }
 
-		public string Name
-		{
-			get { return "HDT-BGhelper"; }
-		}
+        public string Name
+        {
+            get { return "HDT-BGhelper"; }
+        }
 
-		public void OnButtonPress()
-		{
+        public void OnButtonPress()
+        {
         }
 
         public void OnLoad()
-		{
-			helper = new BGhelper();
-			GameEvents.OnGameStart.Add(helper.GameStart);
-			GameEvents.OnGameEnd.Add(helper.GameEnd);
+        {
+            helper = new BGhelper();
+            GameEvents.OnGameStart.Add(helper.Activate);
+            GameEvents.OnInMenu.Add(helper.Deactivate);
         }
 
         public void OnUnload()
-		{
-            helper.Disable();
+        {
+            helper.Deactivate();
         }
 
-		public void OnUpdate()
-		{
+        public void OnUpdate()
+        {
         }
 
-		public Version Version
-		{
-			get { return new Version(1, 2); }
-		}
-	}
+        public Version Version
+        {
+            get { return new Version(1, 3); }
+        }
+    }
 }

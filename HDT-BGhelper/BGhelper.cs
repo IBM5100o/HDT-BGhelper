@@ -7,8 +7,8 @@ using Gma.System.MouseKeyHook;
 
 namespace HDT_BGhelper
 {
-	internal class BGhelper
-	{
+    internal class BGhelper
+    {
         private bool hookExist;
         private IKeyboardMouseEvents m_GlobalHook;
         private const int WM_LBUTTONDOWN = 0x201;
@@ -21,24 +21,21 @@ namespace HDT_BGhelper
         }
 
         [DllImport("user32.dll")]
+        private static extern void SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr WindowFromPoint(Point point);
+
+        [DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll", EntryPoint = "WindowFromPoint", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern IntPtr WindowFromPoint(Point point);
-
-        [DllImport("user32.dll")]
-        static extern void SetCursorPos(int x, int y);
-
-        [DllImport("user32.dll")]
-        static extern bool GetCursorPos(out Point point);
 
         private static IntPtr CreateLParam(int LoWord, int HiWord)
         {
             return (IntPtr)((HiWord << 16) | (LoWord & 0xffff));
         }
 
-        internal void GameStart()
-		{
+        internal void Activate()
+        {
             if (!hookExist)
             {
                 m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
@@ -46,9 +43,13 @@ namespace HDT_BGhelper
             }
         }
 
-        internal void GameEnd()
+        internal void Deactivate()
         {
-            Disable();
+            if (hookExist)
+            {
+                m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
+                hookExist = false;
+            }
         }
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
@@ -64,11 +65,10 @@ namespace HDT_BGhelper
                     var handle = WindowFromPoint(new Point(x, y));
                     var lparam = CreateLParam(dx, dy);
 
-                    GetCursorPos(out Point oripos);
                     SetCursorPos(x + dx, y + dy);
                     SendMessage(handle, WM_LBUTTONDOWN, IntPtr.Zero, lparam);
                     SendMessage(handle, WM_LBUTTONUP, IntPtr.Zero, lparam);
-                    SetCursorPos(oripos.X, oripos.Y);
+                    SetCursorPos(e.X, e.Y);
                 }
                 else if (e.Button == MouseButtons.Middle)
                 {
@@ -79,22 +79,12 @@ namespace HDT_BGhelper
                     var handle = WindowFromPoint(new Point(x, y));
                     var lparam = CreateLParam(dx, dy);
 
-                    GetCursorPos(out Point oripos);
                     SetCursorPos(x + dx, y + dy);
                     SendMessage(handle, WM_LBUTTONDOWN, IntPtr.Zero, lparam);
                     SendMessage(handle, WM_LBUTTONUP, IntPtr.Zero, lparam);
-                    SetCursorPos(oripos.X, oripos.Y);
+                    SetCursorPos(e.X, e.Y);
                 }
             }
         }
-
-        public void Disable()
-        {
-            if (hookExist)
-            {
-                m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
-                hookExist = false;
-            }
-        }
-	}
+    }
 }

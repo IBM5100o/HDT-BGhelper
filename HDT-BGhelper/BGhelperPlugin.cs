@@ -21,7 +21,7 @@ namespace HDT_BGhelper
         public string Description
         {
             get { return "A battleground plugin makes shortcuts for refresh and freeze.\n" +
-                    "Right click = refresh, middle click = freeze"; }
+                    "Right click = refresh, middle click = freeze."; }
         }
 
         public System.Windows.Controls.MenuItem MenuItem
@@ -41,8 +41,6 @@ namespace HDT_BGhelper
         public void OnLoad()
         {
             helper = new BGhelper();
-            GameEvents.OnGameStart.Add(helper.Activate);
-            GameEvents.OnInMenu.Add(helper.Deactivate);
         }
 
         public void OnUnload()
@@ -52,11 +50,15 @@ namespace HDT_BGhelper
 
         public void OnUpdate()
         {
+            if (Core.Game.IsBattlegroundsMatch && !Core.Game.IsInMenu)
+                helper.Activate();
+            else
+                helper.Deactivate();
         }
 
         public Version Version
         {
-            get { return new Version(1, 3); }
+            get { return new Version(1, 4); }
         }
     }
 }

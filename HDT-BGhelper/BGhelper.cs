@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
-using Hearthstone_Deck_Tracker;
 using static Hearthstone_Deck_Tracker.User32;
 
 namespace HDT_BGhelper
 {
     internal class BGhelper
     {
+        private MouseHook hsHook = null;
         private const int WM_LBUTTONDOWN = 0x201;
         private const int WM_LBUTTONUP = 0x202;
         private const double rx = 1130.0 / 1920.0;
         private const double ry = 200.0 / 1080.0;
         private const double fx = 1240.0 / 1920.0;
         private const double fy = 170.0 / 1080.0;
-
-        private MouseHook hsHook = null;
 
         [DllImport("user32.dll")]
         private static extern void SetCursorPos(int x, int y);
@@ -50,10 +49,11 @@ namespace HDT_BGhelper
         {
             if (IsHearthstoneInForeground())
             {
-                int x = (int)(Core.Overlay.Left);
-                int y = (int)(Core.Overlay.Top);
-                int dx = (int)(Core.Overlay.RenderSize.Width * rx);
-                int dy = (int)(Core.Overlay.RenderSize.Height * ry);
+                Rectangle hsRect = GetHearthstoneRect(true);
+                int x = hsRect.X;
+                int y = hsRect.Y;
+                int dx = (int)(hsRect.Width * rx);
+                int dy = (int)(hsRect.Height * ry);
                 var handle = GetHearthstoneWindow();
                 var lparam = CreateLParam(dx, dy);
                 var oripos = GetMousePos();
@@ -69,10 +69,11 @@ namespace HDT_BGhelper
         {
             if (IsHearthstoneInForeground())
             {
-                int x = (int)(Core.Overlay.Left);
-                int y = (int)(Core.Overlay.Top);
-                int dx = (int)(Core.Overlay.RenderSize.Width * fx);
-                int dy = (int)(Core.Overlay.RenderSize.Height * fy);
+                Rectangle hsRect = GetHearthstoneRect(true);
+                int x = hsRect.X;
+                int y = hsRect.Y;
+                int dx = (int)(hsRect.Width * fx);
+                int dy = (int)(hsRect.Height * fy);
                 var handle = GetHearthstoneWindow();
                 var lparam = CreateLParam(dx, dy);
                 var oripos = GetMousePos();

@@ -10,8 +10,8 @@ Since the right click set to refresh, don't send emoji when you can refresh.
 
 # Installation  
 
-1.Download the **HDT-BGhelper.dll** from [here](https://github.com/IBM5100o/HDT-BGhelper/releases).  
+1.Download the **HDT-BGhelper.zip** from [here](https://github.com/IBM5100o/HDT-BGhelper/releases).  
 2.Open the HDT, choose Options->Tracker->Plugins->Plugins Folder.  
 ![](https://hackmd.io/_uploads/H1Mz_iw-6.png)  
-3.Put the **HDT-BGhelper.dll** into the plugins folder.  
+3.Extract the **HDT-BGhelper.zip** into the plugins folder.  
 4.Restart the HDT and enable the plugin.

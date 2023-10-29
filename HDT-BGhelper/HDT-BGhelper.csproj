@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\..\..\Hearthstone-Deck-Tracker-master\Hearthstone Deck Tracker\bin\x86\Debug\HearthstoneDeckTracker.exe</HintPath>
+      <HintPath>Reference\HearthstoneDeckTracker.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
